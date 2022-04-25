@@ -77,6 +77,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.haroonfazal.haroonapps.bustracker.Models.UserLocation;
 import com.haroonfazal.haroonapps.bustracker.R;
 import com.haroonfazal.haroonapps.bustracker.Services.LocationShareService;
+import com.haroonfazal.haroonapps.bustracker.Utils.CarDetailBottomSheetDialogFragment;
 import com.haroonfazal.haroonapps.bustracker.Utils.CustomBottomSheetDialogFragment;
 
 import org.json.JSONException;
@@ -316,7 +317,10 @@ public class NavigationActivity extends AppCompatActivity
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        new CustomBottomSheetDialogFragment().show(getSupportFragmentManager(), "Dialog");
+        if (marker.getTitle() == null) return false;
+
+
+        new CarDetailBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
 /*
         LatLng marker_Pos = marker.getPosition();
 
@@ -381,7 +385,6 @@ public class NavigationActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
