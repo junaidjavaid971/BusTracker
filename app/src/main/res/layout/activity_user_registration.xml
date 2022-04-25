@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="bottom"
+        android:scaleType="center"
+        android:src="@drawable/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userToolbar" />
+
+    <TextView
+        android:id="@+id/userToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_white"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/str_personalInfo"
+            android:textColor="@color/black"
+            android:textSize="22dp" />
+
+        <EditText
+            android:id="@+id/tv_enterName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_register_user"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_name"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/tv_enterEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_email"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_driver_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/tv_enterPass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_driver_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/btn_register"
+            android:onClick="registerUser"
+            android:text="Register"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

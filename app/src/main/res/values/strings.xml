@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">IOBM Bus Tracker</string>
+    <string name="title_activity_my_navigation">School Bus Tracker</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="publisher_id">pub-3940256099942544</string>
+    <string name="privacy_policy_url">https://www.freeprivacypolicy.com/privacy/view/d15db58a24665d1950adb65487708688
+    </string>
+    <string name="ADS_APP_ID">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="ADS_BANNER_UNIT_ID">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ADS_INTERSTITIAL_UNIT_ID">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="str_driver_name">Driver Name</string>
+    <string name="str_driver_email">Email</string>
+    <string name="str_driver_password">Password</string>
+    <string name="str_busNumber">Bus Number</string>
+    <string name="str_name">Name</string>
+    <string name="str_personalInfo">Personal Information</string>
+    <string name="str_login">Login</string>
+    <string name="enter_name_pass">Please enter your name and password to continue</string>
+    <string name="arrival_information">Arrival Informations</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account_click_here">Already have an account? Click here</string>
+    <string name="register_as_user">Register As User</string>
+    <string name="register_as_driver">Register As Driver</string>
+    <string name="tomorrow">Tomorrow</string>
+
+
+</resources>

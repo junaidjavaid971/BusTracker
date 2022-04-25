@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/c1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/userToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="412dp"
+        android:layout_height="321dp"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:src="@drawable/login_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/driverToolbar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_white"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/driverToolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/str_personalInfo"
+            android:textColor="@color/black"
+            android:textSize="22dp" />
+
+        <EditText
+            android:id="@+id/tv_enterDriverName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_driver_name"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_driver_name"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/tv_enterDriverEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_email"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_driver_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/tv_enterDriverPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_driver_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/tv_enterBusNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dim_10sdp"
+            android:background="@drawable/bg_txtgray"
+            android:drawableLeft="@drawable/ic_bus_number"
+            android:drawablePadding="@dimen/dim_10sdp"
+            android:drawableTint="@color/textColor"
+            android:hint="@string/str_busNumber"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dim_10sdp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor" />
+
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="@dimen/dim_10sdp"
+            android:background="@drawable/btn_register"
+            android:onClick="registerDriver"
+            android:text="Register"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

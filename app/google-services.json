@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "705704496663",
+    "firebase_url": "https://bus-tracker-codecanyon.firebaseio.com",
+    "project_id": "bus-tracker-codecanyon",
+    "storage_bucket": "bus-tracker-codecanyon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705704496663:android:49238c903f9057ce45d652",
+        "android_client_info": {
+          "package_name": "com.haroonfazal.haroonapps.bustracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705704496663-4a6tpssbs2i2dm9vpqs03b4vue5u06ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv1HGKVLyHaedqd8SjqL6wyQE1DYvtJ6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705704496663-4a6tpssbs2i2dm9vpqs03b4vue5u06ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
