@@ -11,9 +11,11 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -64,6 +66,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,15 +77,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.maps.android.PolyUtil;
 import com.haroonfazal.haroonapps.bustracker.Models.UserLocation;
 import com.haroonfazal.haroonapps.bustracker.R;
 import com.haroonfazal.haroonapps.bustracker.Services.LocationShareService;
 import com.haroonfazal.haroonapps.bustracker.Utils.CarDetailBottomSheetDialogFragment;
 import com.haroonfazal.haroonapps.bustracker.Utils.CustomBottomSheetDialogFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -321,8 +332,7 @@ public class NavigationActivity extends AppCompatActivity
 
 
         new CarDetailBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
-/*
-        LatLng marker_Pos = marker.getPosition();
+        /*LatLng marker_Pos = marker.getPosition();
 
         double distance = CalculationByDistance(latLngCurrentuserLocation, marker_Pos);
         DecimalFormat df = new DecimalFormat("#.##");
@@ -343,15 +353,13 @@ public class NavigationActivity extends AppCompatActivity
 
 
         DirectionAsync getDirectionsData = new DirectionAsync(getApplicationContext());
-        dataTransfer[0] = mMap;
-        dataTransfer[1] = sb.toString();
-        dataTransfer[2] = new LatLng(marker_Pos.latitude, marker_Pos.longitude);
-        dataTransfer[3] = new LatLng(latLngCurrentuserLocation.latitude, latLngCurrentuserLocation.longitude);
-        dataTransfer[4] = marker;
+        dataTransfer[0] = sb.toString();
+        dataTransfer[1] = new LatLng(marker_Pos.latitude, marker_Pos.longitude);
+        dataTransfer[2] = new LatLng(latLngCurrentuserLocation.latitude, latLngCurrentuserLocation.longitude);
+        dataTransfer[3] = marker;
 
-        getDirectionsData.execute(dataTransfer);
+        getDirectionsData.execute(dataTransfer);*/
 
-*/
         return true;
     }
 
@@ -677,5 +685,99 @@ public class NavigationActivity extends AppCompatActivity
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    class DirectionAsync extends AsyncTask<Object, String, String> {
+
+        HttpURLConnection httpURLConnection = null;
+        String data = "";
+        InputStream inputStream = null;
+
+        String myurl;
+        LatLng startLatLng, endLatLng;
+
+        Context c;
+        Marker marker;
+
+        public DirectionAsync(Context c) {
+            this.c = c;
+        }
+
+        @Override
+        protected String doInBackground(Object... params) {
+            myurl = (String) params[0];
+            startLatLng = (LatLng) params[1];
+            endLatLng = (LatLng) params[2];
+            marker = (Marker) params[3];
+
+            try {
+                URL url = new URL(myurl);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.connect();
+
+                inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuffer sb = new StringBuffer();
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                data = sb.toString();
+                bufferedReader.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = jsonObject.getJSONArray("routes").getJSONObject(0)
+                        .getJSONArray("legs").getJSONObject(0).getJSONArray("steps");
+
+
+                JSONArray jsonRoute = jsonObject.getJSONArray("routes").getJSONObject(0).getJSONArray("legs");
+
+
+                JSONObject jsonObject1 = jsonRoute.getJSONObject(0);
+
+                String distancetxt = jsonObject1.getJSONObject("duration").getString("text");
+
+
+                marker.setTitle(distancetxt);
+                Toast.makeText(c, distancetxt + " away.", Toast.LENGTH_SHORT).show();
+
+                /*int count = jsonArray.length();
+                String[] polyline_array = new String[count];
+
+                JSONObject jsonobject2;
+
+
+                for (int i = 0; i < count; i++) {
+                    jsonobject2 = jsonArray.getJSONObject(i);
+
+                    String polygone = jsonobject2.getJSONObject("polyline").getString("points");
+
+                    polyline_array[i] = polygone;
+                }
+
+                int count2 = polyline_array.length;
+
+                for (int i = 0; i < count2; i++) {
+
+                    PolylineOptions options2 = new PolylineOptions();
+                    options2.color(Color.GREEN);
+                    options2.width(10);
+                    options2.addAll(PolyUtil.decode(polyline_array[i]));
+
+                    mMap.addPolyline(options2);
+                }*/
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
