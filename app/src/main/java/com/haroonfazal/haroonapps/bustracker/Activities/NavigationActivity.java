@@ -94,7 +94,6 @@ public class NavigationActivity extends AppCompatActivity
         , GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks
         , LocationListener, GoogleMap.OnMarkerClickListener, ResultCallback {
 
-
     private static final int REQUEST_LOCATION = 1215412;
     LocationManager locationManager;
     GoogleMap mMap;
@@ -139,7 +138,6 @@ public class NavigationActivity extends AppCompatActivity
 
         textName = header.findViewById(R.id.title_text);
         textEmail = header.findViewById(R.id.email_text);
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

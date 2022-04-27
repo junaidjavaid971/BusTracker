@@ -12,4 +12,7 @@
     <color name="time_green">#19AA63</color>
     <color name="light_pink">#C19191</color>
     <color name="txt_gray">#6C6969</color>
+    <color name="bg_order">#494949</color>
+    <color name="color_txt_gray">#B1ACAC</color>
+    <color name="circle_yellow">#B86D0B</color>
 </resources>

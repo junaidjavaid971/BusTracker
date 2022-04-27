@@ -5,10 +5,19 @@
       <map>
         <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable-ldpi/txt_horiaontal_line.xml" value="0.2215" />
         <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/bg_txtgray.xml" value="0.2215" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/circle.xml" value="0.224" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/circle_red.xml" value="0.154" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/circle_yellow.xml" value="0.165" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/ic_alarms.xml" value="0.1985" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/ic_check.xml" value="0.1795" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/red_circle.xml" value="0.154" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/txt_black_circle.xml" value="0.1555" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/txt_gray_circle.xml" value="0.154" />
         <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/drawable/txt_line.xml" value="0.2215" />
         <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/layout/activity_login.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.2609375" />
         <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/layout/car_bottom_sheet_layout.xml" value="0.5" />
+        <entry key="..\:/Users/A/AndroidStudioProjects/BusTracker/app/src/main/res/layout/order_layout.xml" value="0.9" />
         <entry key="..\:/Users/Junaid Javed/Android Studio Projects/BusTracker/app/src/main/res/drawable/bg_txtgray.xml" value="0.14" />
         <entry key="..\:/Users/Junaid Javed/Android Studio Projects/BusTracker/app/src/main/res/drawable/btn_register.xml" value="0.1585" />
         <entry key="..\:/Users/Junaid Javed/Android Studio Projects/BusTracker/app/src/main/res/layout-v23/activity_login.xml" value="0.23802083333333332" />
