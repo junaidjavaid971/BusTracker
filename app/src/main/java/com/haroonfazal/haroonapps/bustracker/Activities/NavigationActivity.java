@@ -18,6 +18,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
@@ -122,6 +123,7 @@ public class NavigationActivity extends AppCompatActivity
 
     TextView textName, textEmail;
     RequestQueue requestQueue;
+    Double distance = 0.0;
 
     ArrayList<UserLocation> stopList24 = new ArrayList<UserLocation>();
     ArrayList<UserLocation> stopListNNazimabad = new ArrayList<UserLocation>();
@@ -215,6 +217,15 @@ public class NavigationActivity extends AppCompatActivity
                     String vehicle_number = dataSnapshot.child("vehiclenumber").getValue(String.class);
                     LatLng latlng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
 
+
+                    double d1 = CalculationByDistance(latLngCurrentuserLocation, latlng);
+                    if (distance == 0.0) {
+                        distance = d1;
+                    } else if (d1 < distance) {
+                        distance = d1;
+                    }
+
+
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.title(name);
                     markerOptions.snippet("Van number: " + vehicle_number);
@@ -268,6 +279,11 @@ public class NavigationActivity extends AppCompatActivity
 
             }
         });
+
+        new Handler().postDelayed(() -> {
+
+
+        }, 50);
     }
 
     private void includeStops() {
@@ -323,14 +339,13 @@ public class NavigationActivity extends AppCompatActivity
         client.connect();
     }
 
-
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker.getTitle() == null) return false;
+ //       if (marker.getTitle() == null) return false;
 
-
-        new CarDetailBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
-        /*LatLng marker_Pos = marker.getPosition();
+ //       new CarDetailBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
+        new CustomBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
+        LatLng marker_Pos = marker.getPosition();
 
         double distance = CalculationByDistance(latLngCurrentuserLocation, marker_Pos);
         DecimalFormat df = new DecimalFormat("#.##");
@@ -347,8 +362,7 @@ public class NavigationActivity extends AppCompatActivity
         sb.append("https://maps.googleapis.com/maps/api/directions/json?");
         sb.append("origin=").append(marker_Pos.latitude).append(",").append(marker_Pos.longitude);
         sb.append("&destination=").append(latLngCurrentuserLocation.latitude).append(",").append(latLngCurrentuserLocation.longitude);
-        sb.append("&key=" + "AIzaSyCsThl1-hAeG2EscPb69ii0hdSXkUJ6-x0");
-
+        sb.append("&key=" + "AIzaSyAvCJARyieO_JjDsyIqA2dNbxbHxf8XV8g");
 
         DirectionAsync getDirectionsData = new DirectionAsync(getApplicationContext());
         dataTransfer[0] = sb.toString();
@@ -356,8 +370,7 @@ public class NavigationActivity extends AppCompatActivity
         dataTransfer[2] = new LatLng(latLngCurrentuserLocation.latitude, latLngCurrentuserLocation.longitude);
         dataTransfer[3] = marker;
 
-        getDirectionsData.execute(dataTransfer);*/
-
+        getDirectionsData.execute(dataTransfer);
         return true;
     }
 
@@ -737,16 +750,36 @@ public class NavigationActivity extends AppCompatActivity
                         .getJSONArray("legs").getJSONObject(0).getJSONArray("steps");
 
 
-                JSONArray jsonRoute = jsonObject.getJSONArray("routes").getJSONObject(0).getJSONArray("legs");
-
-
+                JSONArray jsonRoute = jsonObject.getJSONArray("routes");//.getJSONObject(0).getJSONArray("legs");
                 JSONObject jsonObject1 = jsonRoute.getJSONObject(0);
+                JSONArray legs = jsonObject1.getJSONArray("legs");
+                JSONObject legsObjects = legs.getJSONObject(0);
+                JSONObject time = legsObjects.getJSONObject("duration");
+                String duration = time.getString("text");
 
-                String distancetxt = jsonObject1.getJSONObject("duration").getString("text");
+
+        //        jsonObject = new JSONObject(stringBuilder.toString());
+                JSONArray array = jsonObject.getJSONArray("routes");
+                JSONObject routes = array.getJSONObject(0);
+                JSONArray leg = routes.getJSONArray("legs");
+                JSONObject steps = leg.getJSONObject(0);
+                JSONObject distance = steps.getJSONObject("distance");
+
+              double  dist = Double.parseDouble(distance.getString("text").replaceAll("[^\\.0123456789]","") );
+
+                if (duration.isEmpty()) {
+                    marker.setTitle("N/A");
+                    Toast.makeText(getApplicationContext(), "N/A",Toast.LENGTH_SHORT).show();
+                } else {
+                    marker.setTitle(duration);
+                    marker.setSnippet(String.valueOf(dist));
+                    Toast.makeText(getApplicationContext(), String.valueOf(dist),Toast.LENGTH_SHORT).show();
+                }
+       //         String distancetxt = jsonObject1.getJSONObject("duration").getString("text");
 
 
-                marker.setTitle(distancetxt);
-                Toast.makeText(c, distancetxt + " away.", Toast.LENGTH_SHORT).show();
+
+       //         Toast.makeText(c, distancetxt + " away.", Toast.LENGTH_SHORT).show();
 
                 /*int count = jsonArray.length();
                 String[] polyline_array = new String[count];

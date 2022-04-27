@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.haroonfazal.haroonapps.bustracker.R;
 
-public class Order_Activity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity {
 
     TextView tv_15Min, tv_30Min, tv_1Hour;
 

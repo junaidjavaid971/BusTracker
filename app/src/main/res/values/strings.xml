@@ -25,6 +25,7 @@
     <string name="register_as_user">Register As User</string>
     <string name="register_as_driver">Register As Driver</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="distance">Distance</string>
     <string name="car_information">Car Information</string>
     <string name="driver_name">Name</string>
     <string name="van_number">VAN-NUMBER</string>
