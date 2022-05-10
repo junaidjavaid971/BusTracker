@@ -40,6 +40,12 @@ public class SplashActivity extends AppCompatActivity {
             ;
         };
         splashTread.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
 
     }
 }

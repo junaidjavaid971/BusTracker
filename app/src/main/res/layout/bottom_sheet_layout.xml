@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_white"
         android:paddingBottom="22dp"
@@ -14,48 +14,46 @@
 
         <TextView
             android:id="@+id/tv_arrivalInformation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/arrival_information"
             android:textAlignment="center"
             android:textColor="#3B505E"
-            android:textSize="@dimen/_18sp"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_downward"
-            android:layout_width="34dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/downward_arrow" />
-
         <TextView
             android:id="@+id/tv_arrival"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:gravity="center"
             android:text="Arrival Time:"
             android:textColor="@color/txt_gray"
             android:textSize="@dimen/_16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/tv_arrvalTime"
             app:layout_constraintTop_toBottomOf="@+id/tv_arrivalInformation" />
 
         <TextView
             android:id="@+id/tv_arrvalTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:gravity="center"
             android:text="4.30 Pm"
             android:textColor="@color/time_green"
-            android:textSize="@dimen/_26sp"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_arrival" />
 
@@ -63,65 +61,46 @@
             android:id="@+id/tv_verticalLine"
             android:layout_width="1dp"
             android:layout_height="53dp"
-            android:layout_marginStart="66dp"
             android:layout_marginTop="92dp"
             android:background="@drawable/txt_line"
-            app:layout_constraintStart_toEndOf="@+id/tv_arrvalTime"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:gravity="center"
             android:text="@string/distance"
             android:textColor="@color/txt_gray"
             android:textSize="@dimen/_16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_verticalLine"
-            app:layout_constraintTop_toBottomOf="@+id/iv_downward" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@id/tv_arrival" />
 
         <TextView
             android:id="@+id/tv_distance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/distance"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="2.0 Km"
             android:textColor="@color/light_pink"
-            android:textSize="@dimen/_16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.538"
-            app:layout_constraintStart_toEndOf="@+id/tv_date"
-            app:layout_constraintTop_toBottomOf="@+id/iv_downward" />
-
-        <TextView
-            android:id="@+id/tv_truck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
-            android:text="Truck Type"
-            android:textColor="@color/txt_gray"
-            android:textSize="@dimen/_16sp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_verticalLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
-        <TextView
-            android:id="@+id/tv_truckType"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="31dp"
-            android:text="Wet"
-            android:textSize="@dimen/_16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_truck"
-            app:layout_constraintTop_toBottomOf="@+id/tv_distance" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="190dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

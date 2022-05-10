@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "705704496663",
-    "firebase_url": "https://bus-tracker-codecanyon.firebaseio.com",
-    "project_id": "bus-tracker-codecanyon",
-    "storage_bucket": "bus-tracker-codecanyon.appspot.com"
+    "project_number": "739210596818",
+    "project_id": "bustracker-e0cdf",
+    "storage_bucket": "bustracker-e0cdf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:705704496663:android:49238c903f9057ce45d652",
+        "mobilesdk_app_id": "1:739210596818:android:01a857114feeb1a0a0b80b",
         "android_client_info": {
           "package_name": "com.haroonfazal.haroonapps.bustracker"
         }
       },
       "oauth_client": [
         {
-          "client_id": "705704496663-4a6tpssbs2i2dm9vpqs03b4vue5u06ea.apps.googleusercontent.com",
+          "client_id": "739210596818-nk4okve1pdnb7oldfcaodl4nr8odiof0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haroonfazal.haroonapps.bustracker",
+            "certificate_hash": "0c7a516581cf644c77940d1b4813939cec9ef41b"
+          }
+        },
+        {
+          "client_id": "739210596818-cnsn1tdqe40mqhmu9k2o13tc99icoi8p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCv1HGKVLyHaedqd8SjqL6wyQE1DYvtJ6M"
+          "current_key": "AIzaSyCXFlRjm0Tz_3syN-ETY8XR1UZjHS1k9ZY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "705704496663-4a6tpssbs2i2dm9vpqs03b4vue5u06ea.apps.googleusercontent.com",
+              "client_id": "739210596818-cnsn1tdqe40mqhmu9k2o13tc99icoi8p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

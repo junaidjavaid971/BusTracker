@@ -25,10 +25,13 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
     BottomSheetLayoutBinding binding;
     Marker marker;
 
-    public CustomBottomSheetDialogFragment(Marker marker){this.marker = marker;}
+    public CustomBottomSheetDialogFragment(Marker marker) {
+        this.marker = marker;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.bottom_sheet_layout, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_layout, container, false);
         return binding.getRoot();
     }
 
@@ -42,12 +45,11 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         bottomSheet.setBackgroundColor(Color.TRANSPARENT);
 
         binding.tvArrvalTime.setText(marker.getTitle());
-        binding.tvDistance.setText(marker.getSnippet()+" km");
-        binding.ivDownward.setOnClickListener(view1 -> {
-            getFragmentManager().beginTransaction()
-                    .remove(CustomBottomSheetDialogFragment.this).commit();
+        binding.tvDistance.setText(marker.getSnippet() + " km");
+    }
 
-        });
-
+    public void updateDetails(Marker marker) {
+        binding.tvArrvalTime.setText(marker.getTitle());
+        binding.tvDistance.setText(marker.getSnippet() + " km");
     }
 }

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             checkPermissions();
         } else {
-            Intent myIntent = new Intent(MainActivity.this, NavigationActivity.class);
+            Intent myIntent = new Intent(MainActivity.this, DashboardActivity.class);
             startActivity(myIntent);
             finish();
         }
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     public void login(View v) {
         Intent myIntent = new Intent(this, LoginActivity.class);
         startActivity(myIntent);
-
     }
 
     private boolean checkPermissions() {

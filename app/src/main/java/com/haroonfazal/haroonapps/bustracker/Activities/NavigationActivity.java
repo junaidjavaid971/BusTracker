@@ -118,7 +118,7 @@ public class NavigationActivity extends AppCompatActivity
     boolean driver_profile = false;
 
     boolean user_profile = false;
-    LatLng updateLatLng;
+    LatLng updateLatLng, nearestLatlng;
     DatabaseReference referenceDrivers, referenceUsers, scheduleReference;
 
     TextView textName, textEmail;
@@ -175,10 +175,8 @@ public class NavigationActivity extends AppCompatActivity
                     navigationView.getMenu().clear();
                     navigationView.inflateMenu(R.menu.driver_menu);
 
-
                 } else {
                     user_profile = true;
-
 
                     referenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -207,6 +205,7 @@ public class NavigationActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
         referenceDrivers.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -217,14 +216,13 @@ public class NavigationActivity extends AppCompatActivity
                     String vehicle_number = dataSnapshot.child("vehiclenumber").getValue(String.class);
                     LatLng latlng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
 
-
                     double d1 = CalculationByDistance(latLngCurrentuserLocation, latlng);
                     if (distance == 0.0) {
                         distance = d1;
                     } else if (d1 < distance) {
                         distance = d1;
+                        nearestLatlng = latlng;
                     }
-
 
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.title(name);
@@ -329,7 +327,7 @@ public class NavigationActivity extends AppCompatActivity
         mMap.setOnMarkerClickListener(this);
 
         includeStops();
-        // Add a marker in Sydney and move the camera
+
         client = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addOnConnectionFailedListener(this)
@@ -337,17 +335,12 @@ public class NavigationActivity extends AppCompatActivity
                 .build();
 
         client.connect();
+
+        showTimeBottomSheet();
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
- //       if (marker.getTitle() == null) return false;
-
- //       new CarDetailBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
-        new CustomBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
-        LatLng marker_Pos = marker.getPosition();
-
-        double distance = CalculationByDistance(latLngCurrentuserLocation, marker_Pos);
+    private void showTimeBottomSheet() {
+        double distance = CalculationByDistance(latLngCurrentuserLocation, nearestLatlng);
         DecimalFormat df = new DecimalFormat("#.##");
         String dist = df.format(distance);
 
@@ -360,17 +353,25 @@ public class NavigationActivity extends AppCompatActivity
 
         sb = new StringBuilder();
         sb.append("https://maps.googleapis.com/maps/api/directions/json?");
-        sb.append("origin=").append(marker_Pos.latitude).append(",").append(marker_Pos.longitude);
+        sb.append("origin=").append(nearestLatlng.latitude).append(",").append(nearestLatlng.longitude);
         sb.append("&destination=").append(latLngCurrentuserLocation.latitude).append(",").append(latLngCurrentuserLocation.longitude);
         sb.append("&key=" + "AIzaSyAvCJARyieO_JjDsyIqA2dNbxbHxf8XV8g");
 
         DirectionAsync getDirectionsData = new DirectionAsync(getApplicationContext());
         dataTransfer[0] = sb.toString();
-        dataTransfer[1] = new LatLng(marker_Pos.latitude, marker_Pos.longitude);
+        dataTransfer[1] = new LatLng(nearestLatlng.latitude, nearestLatlng.longitude);
         dataTransfer[2] = new LatLng(latLngCurrentuserLocation.latitude, latLngCurrentuserLocation.longitude);
-        dataTransfer[3] = marker;
 
         getDirectionsData.execute(dataTransfer);
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        //       if (marker.getTitle() == null) return false;
+
+        //       new CarDetailBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
+        new CustomBottomSheetDialogFragment(marker).show(getSupportFragmentManager(), "Dialog");
+        LatLng marker_Pos = marker.getPosition();
         return true;
     }
 
@@ -405,7 +406,6 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -426,8 +426,6 @@ public class NavigationActivity extends AppCompatActivity
                 } else if (driver_profile) {
                     Intent myIntent = new Intent(NavigationActivity.this, LocationShareService.class);
                     startService(myIntent);
-
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Only driver can share location", Toast.LENGTH_SHORT).show();
                 }
@@ -437,18 +435,6 @@ public class NavigationActivity extends AppCompatActivity
                 Intent myIntent2 = new Intent(NavigationActivity.this, LocationShareService.class);
                 stopService(myIntent2);
             }
-//            else if(id == R.id.nav_send_fcm)
-//            {
-//                if(driver_profile)
-//                {
-//             //       openDialog();
-//                }
-//                else
-//                {
-//                    Toast.makeText(getApplicationContext(),"Only drivers can send notifications",Toast.LENGTH_LONG).show();
-//                }
-//            }
-
         } else {
             if (id == R.id.nav_signout_user) {
                 if (auth != null) {
@@ -533,12 +519,7 @@ public class NavigationActivity extends AppCompatActivity
         jsonObject.put("notification", notificationObject);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "https://fcm.googleapis.com/fcm/send", jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("response", response.toString());
-                    }
-                }, new Response.ErrorListener() {
+                response -> Log.d("response", response.toString()), new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "error in response=" + error.getMessage(), Toast.LENGTH_LONG).show();
@@ -672,8 +653,9 @@ public class NavigationActivity extends AppCompatActivity
         }
         if (ActivityCompat.checkSelfPermission(
                 NavigationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                NavigationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                NavigationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                NavigationActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, REQUEST_LOCATION);
         } else {
             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (locationGPS != null) {
@@ -758,28 +740,27 @@ public class NavigationActivity extends AppCompatActivity
                 String duration = time.getString("text");
 
 
-        //        jsonObject = new JSONObject(stringBuilder.toString());
+                //        jsonObject = new JSONObject(stringBuilder.toString());
                 JSONArray array = jsonObject.getJSONArray("routes");
                 JSONObject routes = array.getJSONObject(0);
                 JSONArray leg = routes.getJSONArray("legs");
                 JSONObject steps = leg.getJSONObject(0);
                 JSONObject distance = steps.getJSONObject("distance");
 
-              double  dist = Double.parseDouble(distance.getString("text").replaceAll("[^\\.0123456789]","") );
+                double dist = Double.parseDouble(distance.getString("text").replaceAll("[^\\.0123456789]", ""));
 
                 if (duration.isEmpty()) {
                     marker.setTitle("N/A");
-                    Toast.makeText(getApplicationContext(), "N/A",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "N/A", Toast.LENGTH_SHORT).show();
                 } else {
                     marker.setTitle(duration);
                     marker.setSnippet(String.valueOf(dist));
-                    Toast.makeText(getApplicationContext(), String.valueOf(dist),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), String.valueOf(dist), Toast.LENGTH_SHORT).show();
                 }
-       //         String distancetxt = jsonObject1.getJSONObject("duration").getString("text");
+                //         String distancetxt = jsonObject1.getJSONObject("duration").getString("text");
 
 
-
-       //         Toast.makeText(c, distancetxt + " away.", Toast.LENGTH_SHORT).show();
+                //         Toast.makeText(c, distancetxt + " away.", Toast.LENGTH_SHORT).show();
 
                 /*int count = jsonArray.length();
                 String[] polyline_array = new String[count];

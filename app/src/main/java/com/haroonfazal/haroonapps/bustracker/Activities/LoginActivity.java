@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 dialog.dismiss();
-                                Intent loginIntent = new Intent(LoginActivity.this, NavigationActivity.class);
+                                Intent loginIntent = new Intent(LoginActivity.this, DashboardActivity.class);
                                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(loginIntent);
                                 finish();

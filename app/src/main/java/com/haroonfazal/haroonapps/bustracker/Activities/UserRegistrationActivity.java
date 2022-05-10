@@ -93,7 +93,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                                 Toast.makeText(UserRegistrationActivity.this,
                                                         "Account created successfully", Toast.LENGTH_SHORT).show();
                                                 finish();
-                                                Intent myIntent = new Intent(UserRegistrationActivity.this, NavigationActivity.class);
+                                                Intent myIntent = new Intent(UserRegistrationActivity.this, DashboardActivity.class);
                                                 myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(myIntent);
                                             } else {
